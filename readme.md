@@ -1,11 +1,17 @@
 Loggbok Tom Bodén
 ===========
 
+Black Jack fortsättning
+----------
+* småfix
+* splitta
+* dubbla
+* Grafiskt (kunna klicka istället för att skriva)
+
 Plan Black Jack
 -------------
 * splitta
 * dubbla
-* 
 * snygga kort, unicode
 * En riktig kortlek som kort tas bort från.
 * Ta bort tidigare spel. Om ej för svårt.
