@@ -23,10 +23,10 @@ kortlek = []
 
 kortlek.append([2, "Hjärter", "2"]) # [värde, färg, utskrift]
 kortlek.append([3, "hjärter", "3"])
-kortlek.append ([10, "Spader", "Dam"])
-kortlek.append([10, "Spader", "Kung"])
-kortlek.append([10, "Spader", "Knäckt"])
-kortlek.append([11, "Spader", "Ess"])
+kortlek.append ([10, "♠", "Dam"])
+kortlek.append([10, "♠", "Kung"])
+kortlek.append([10, "♠", "Knäckt"])
+kortlek.append([11, "♠", "Ess"])
 
 
 
@@ -49,13 +49,18 @@ while spela.lower() == "j":
 
      print (kassa, "kronor")
 
-
-
      text = input ("hur mycket satsar du?: ")
+     if text.isnumeric() == False:
+         print("")
+         continue
      text = int(text)
      if text > kassa:
          print("")
          continue
+     elif text <= 0:
+         print("")
+         continue
+     
      while hand_total(player_hand) < 21:
           player_total = hand_total(player_hand)
           print ("Dina kort är:", player_hand, "Total: ", player_total)
@@ -85,11 +90,16 @@ while spela.lower() == "j":
      player_total = hand_total(player_hand)
      computer_total = hand_total(computer_hand)
 
+
      print ("     ")
      print ("Din total:", player_hand, hand_total(player_hand))
      print ("Casinots total:", computer_hand, hand_total(computer_hand))
 
-     if player_total > 21:
+
+     if computer_total > 21 and player_total <= 21:
+          print ("Du vinner!")
+          kassa += text
+     elif player_total > 21:
           print ("Casinot vinner")
           kassa -= text     
      elif player_total == 21 and text2 != "j":
@@ -113,7 +123,9 @@ while spela.lower() == "j":
           else:
                print("Tack för att du spelade!")
                break
+     
+
      spela = input("Vill du spela igen? (j/n): ").lower()
      if spela != "j":
-          print ("Tack för att du spelade!")
-          break
+          print("Tack för att du spelade!")
+          break    
