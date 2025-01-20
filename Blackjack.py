@@ -14,18 +14,64 @@ def hand_total(hand):
      return total
      
 kassa = 200
-färger = ["Hjärter", "Spader", "Ruter", "Klöver"]
+färger = ["♥", "♠", "♦", "♣"]
 värden = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
 namn = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Kn", "D", "K", "A"]
 
 kortlek = []
 
 
-kortlek.append([2, "Hjärter", "2"]) # [värde, färg, utskrift]
-kortlek.append([3, "hjärter", "3"])
+kortlek.append([2, "♥", "2"])
+kortlek.append([3, "♥", "3"])
+kortlek.append([4, "♥", "4"])
+kortlek.append([5, "♥", "5"])
+kortlek.append([6, "♥", "6"])
+kortlek.append([7, "♥", "7"])
+kortlek.append([8, "♥", "8"])
+kortlek.append([9, "♥", "9"])
+kortlek.append([10, "♥", "10"])
+kortlek.append ([10, "♥", "Knäckt"])
+kortlek.append ([10, "♥", "Dam"])
+kortlek.append([10, "♥", "Kung"])
+kortlek.append([11, "♥", "Ess"])
+kortlek.append([2, "♦", "2"])
+kortlek.append([3, "♦", "3"])
+kortlek.append([4, "♦", "4"])
+kortlek.append([5, "♦", "5"])
+kortlek.append([6, "♦", "6"])
+kortlek.append([7, "♦", "7"])
+kortlek.append([8, "♦", "8"])
+kortlek.append([9, "♦", "9"])
+kortlek.append([10, "♦", "10"])
+kortlek.append ([10, "♦", "Knäckt"])
+kortlek.append ([10, "♦", "Dam"])
+kortlek.append([10, "♦", "Kung"])
+kortlek.append([11, "♦", "Ess"])
+kortlek.append([2, "♣", "2"])
+kortlek.append([3, "♣", "3"])
+kortlek.append([4, "♣", "4"])
+kortlek.append([5, "♣", "5"])
+kortlek.append([6, "♣", "6"])
+kortlek.append([7, "♣", "7"])
+kortlek.append([8, "♣", "8"])
+kortlek.append([9, "♣", "9"])
+kortlek.append([10, "♣", "10"])
+kortlek.append ([10, "♣", "Knäckt"])
+kortlek.append ([10, "♣", "Dam"])
+kortlek.append([10, "♣", "Kung"])
+kortlek.append([11, "♣", "Ess"])
+kortlek.append([2, "♠", "2"])
+kortlek.append([3, "♠", "3"])
+kortlek.append([4, "♠", "4"])
+kortlek.append([5, "♠", "5"])
+kortlek.append([6, "♠", "6"])
+kortlek.append([7, "♠", "7"])
+kortlek.append([8, "♠", "8"])
+kortlek.append([9, "♠", "9"])
+kortlek.append([10, "♠", "10"])
+kortlek.append ([10, "♠", "Knäckt"])
 kortlek.append ([10, "♠", "Dam"])
 kortlek.append([10, "♠", "Kung"])
-kortlek.append([10, "♠", "Knäckt"])
 kortlek.append([11, "♠", "Ess"])
 
 
