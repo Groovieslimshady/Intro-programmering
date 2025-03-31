@@ -1,14 +1,43 @@
 Loggbok Tom Bodén
 ===========
 
-Black Jack fortsättning
+25-03-31
+----
+* Gjort en full kortlek
+* Gjort att klädda kort räknas som 10
+* gjort att ess räknas som 11 och 1
+
+25-03-14
+-----
+Fortsatt med blackjack och tkinter
+har fixat så att man kan satsa och ska fortsätta med att fixa så att man kan gå vidare efter satsningen
+
+
+Tkinter
+-----
+* Fortsätter göra om blackjack till tkinter
+
+
+Tkinter
+------
+* Generell övning av Tkinster
+
+Blackjack
+-------
+* fixa så att man kan få black jack
+* fixa så att kortleken inte tar slut
+
+
+
+Blackjack fortsättning
 ----------
+* fixa med kortlek
 * småfix
 * splitta
 * dubbla
 * Grafiskt (kunna klicka istället för att skriva)
 
-Plan Black Jack
+Plan Blackjack
 -------------
 * splitta
 * dubbla
