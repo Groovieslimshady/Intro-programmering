@@ -1,6 +1,13 @@
 Loggbok Tom Bodén
 ===========
-
+25-04-28
+-----
+* löst att alla får kort
+* löst att klädda kort räknas som 10
+* löst ess
+* löst med satsning och att banken ändras
+* löst att man inte kan satsa mer än vad man har
+* löst att man inte kan satsa mindre än 1
 25-03-31
 ----
 * Gjort en full kortlek
