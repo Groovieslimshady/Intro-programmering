@@ -31,7 +31,7 @@ kassa = 2000
 
 def new_deck():
      kortlek = []
-     for i in range(2):
+     for i in range(1):
           kortlek.append([2, "♥", "2"])
           kortlek.append([3, "♥", "3"])
           kortlek.append([4, "♥", "4"])
@@ -175,7 +175,12 @@ while spela.lower() == "j":
      print ("Casinots total:", hand_to_string(computer_hand), [hand_total(computer_hand)])
 
 
-     if computer_total > 21 and player_total <= 21:
+     if player_total == 21 and len(player_hand) == 2 and computer_total != 21:
+          print ("Black Jack!")
+          kassa += text * 2
+          print ("")
+          print ("Dina pengar:", kassa)
+     elif computer_total > 21 and player_total <= 21:
           print ("Du vinner!")
           kassa += text
           print ("")
@@ -185,11 +190,6 @@ while spela.lower() == "j":
           kassa -= text
           print ("")
           print ("Dina pengar:", kassa)     
-     elif player_total == 21 and len(player_hand) == 2 and computer_total != 21:
-          print ("Black Jack!")
-          kassa += text * 2
-          print ("")
-          print ("Dina pengar:", kassa)
      elif computer_total > 21 or player_total > computer_total:
           print ("Du vann!")
           kassa += text
