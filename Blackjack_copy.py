@@ -34,7 +34,7 @@ def hand_total(hand):
           total -= 10
           ess -= 1
      return total
-     
+
 kassa = 5000
 
 
@@ -68,6 +68,8 @@ def new_deck():
           kortlek.append([11, "Tkinter/Kortlek/ace_of_clubs.png"])
           kortlek.append([11, "Tkinter/Kortlek/ace_of_hearts.png"])
           kortlek.append([11, "Tkinter/Kortlek/ace_of_spades2.png"])
+
+
           #kortlek.append ([10, "♥", "Kn"])
 
      random.shuffle(kortlek)
@@ -88,10 +90,19 @@ def hand_to_string(hand):
      return text
 
 def button_clicked():
-          global photoImg, photoImg2, photoImg_player, photoImg2_player
+          global photoImg_dealer, photoImg2_dealer, photoImg_player, photoImg2_player, kassa
           satsning = int(entry.get("1.0", "end-1c"))
           print (satsning)
-
+          if satsning > kassa:
+               messagebox.showerror("Error", "Du har inte tillräckligt med pengar!")
+               return
+          elif satsning <= 0:
+               messagebox.showerror("Error", "Satsningen måste vara större än 0!")
+               return
+          
+          kassa -= satsning
+          print(f"Satsning: {satsning}, Kvar i banken: {kassa}")
+          bank.config(text=f"Bank: {kassa} sek")
           # dealern får ett kort (och ett dolt)
           # spelaren får två kort
           # visa knappar hit o stand
@@ -104,25 +115,27 @@ def button_clicked():
           img_player = Image.open(player_hand[0][1])
           img_player = img_player.resize((width,height))
           photoImg_player =  ImageTk.PhotoImage(img_player)
-          can.create_image((580, 220), image = photoImg_player)
+          can.create_image((580, 520), image = photoImg_player)
 
 
           img2_player = Image.open(player_hand[1][1])
           img2_player = img2_player.resize((width,height))
           photoImg2_player =  ImageTk.PhotoImage(img2_player)
-          can.create_image((650, 220), image = photoImg2_player)
+          can.create_image((650, 520), image = photoImg2_player)
 
-          img = Image.open(dealer_hand[0][1])
-          img = img.resize((width,height))
-          photoImg =  ImageTk.PhotoImage(img)
-          can.create_image((580, 520), image = photoImg)
+          img_dealer = Image.open(dealer_hand[0][1])
+          img_dealer = img_dealer.resize((width,height))
+          photoImg_dealer =  ImageTk.PhotoImage(img_dealer)
+          can.create_image((580, 220), image = photoImg_dealer)
 
 
-          img2 = Image.open(dealer_hand[1][1])
-          img2 = img2.resize((width,height))
-          photoImg2 =  ImageTk.PhotoImage(img2)
-          can.create_image((650, 520), image = photoImg2)
-          
+          img2_dealer = Image.open(dealer_hand[1][1])
+          img2_dealer = img2_dealer.resize((width,height))
+          photoImg2_dealer =  ImageTk.PhotoImage(img2_dealer)
+          can.create_image((650, 220), image = photoImg2_dealer)
+          entry.destroy()
+          button.destroy()
+          satsning_ask.destroy()
           root.update()
           
      
@@ -188,8 +201,8 @@ while spela.lower() == "j":
 
 
      #intUserInput = simpledialog.askinteger(title="hej",prompt="Hur mycket satsar du?", parent=root,minvalue=1, maxvalue=bank )
-     satsning = ttk.Label (root, text="hur mycket satsar du?")
-     satsning_window = can.create_window(620, 42, anchor="center", window=satsning)
+     satsning_ask = ttk.Label (root, text="hur mycket satsar du?")
+     satsning_window = can.create_window(620, 42, anchor="center", window=satsning_ask)
 
      entry = tk.Text(root, height=1, width=10)
      entry_window = can.create_window(620, 66, anchor="center", window=entry)
