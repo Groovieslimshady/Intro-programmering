@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 from tkinter import Menubutton, OptionMenu, Menu
 
 root = tk.Tk()
-root.geometry ("1920x800+0+1")
+root.geometry ("1920x1080+0+1")
 root.title ("BlackJack")
 root.iconbitmap('C:/Pythonkaka/blackjack.ico')
 
@@ -20,8 +20,15 @@ player_card_images = []
 dealer_card_images = []
 button_hit = None
 button_stand = None
+button_double = None
 player_total_label = None
 
+
+def hand_to_string(hand):
+     text = ""
+     for card in hand:
+          text += card[1] + " "
+     return text
 
 def is_blackjack(hand):
      return len(hand) == 2 and hand_total(hand) == 21
@@ -32,7 +39,6 @@ def button2_clicked():
 
 def count_ess(hand):
      return sum(1 for card in hand if card[0] == 11)
-
 
 def hand_total(hand):
      total = sum(card[0] for card in hand)
@@ -80,6 +86,45 @@ kortlek = new_deck()
 def dra_kort(kortlek):
      return kortlek.pop()
 
+def double():
+    global photoImg_hit, kassa, button_hit, button_stand, button_double
+
+    if button_hit:
+        button_hit.destroy()
+    if button_stand:
+        button_stand.destroy()
+    if button_double:
+        button_double.destroy()
+
+    try:
+        satsning = int(entry.get("1.0", "end-1c"))
+    except ValueError:
+        messagebox.showerror("Fel", "Ogiltig insats.")
+        return
+
+    if satsning > kassa:
+        messagebox.showerror("Error", "Inte tillräckligt med pengar för Double Down!")
+        return
+
+    new_card = dra_kort(kortlek)
+    player_hand.append(new_card)
+    x_position = 580 + (len(player_hand) - 1) * 70
+    y_position = 520
+    img_hit = Image.open(new_card[1])
+    img_hit = img_hit.resize((width, height))
+    photoImg_hit = ImageTk.PhotoImage(img_hit)
+    player_card_images.append(photoImg_hit)
+    can.create_image((x_position, y_position), image=photoImg_hit)
+
+    kassa -= satsning
+    satsning *= 2
+    entry.delete("1.0", "end")
+    entry.insert("1.0", str(satsning))
+
+    player_total_label.config(text=f"Total: {hand_total(player_hand)}")
+    bank.config(text=f"Bank: {kassa} sek")
+
+    stand()
 def hit():
      global photoImg_hit, kassa
      new_card = dra_kort(kortlek)
@@ -92,7 +137,6 @@ def hit():
      player_card_images.append(photoImg_hit)
      can.create_image((x_position, y_position), image=photoImg_hit)
      player_total = hand_total(player_hand)
-
      player_total_label.config(text=f"Total: {hand_total(player_hand)}")
 
      if player_total > 21:
@@ -100,6 +144,8 @@ def hit():
                button_hit.destroy()
           if button_stand:
                button_stand.destroy()
+          if button_double:
+               button_double.destroy()
           stand()
           print (player_total)
 
@@ -109,16 +155,18 @@ def stand():
      img2_dealer = img2_dealer.resize((width, height))
      photoImg2_dealer = ImageTk.PhotoImage(img2_dealer)
      can.create_image((650, 220), image=photoImg2_dealer)
-     global button_hit, button_stand
+     global button_hit, button_stand, button_double
      if button_hit:
           button_hit.destroy()
      if button_stand:
           button_stand.destroy()
-     button_new_game = tk.Button(root, text=("nytt spel?"), command=new_game)
-     button_new_game_window = can.create_window(580, 92, anchor="center", window=button_new_game)
+     if button_double:
+          button_double.destroy()
+     button_new_game = tk.Button(root, text=("nytt spel?"), height= 2, width=10, background="green", command=new_game)
+     button_new_game_window = can.create_window(580, 86, anchor="center", window=button_new_game)
      
-     button_avsluta = tk.Button(root, text=("Avsluta"), command=avsluta)
-     button_avsluta = can.create_window(660, 92, anchor="center", window=button_avsluta)
+     button_avsluta = tk.Button(root, text=("Avsluta"), background="red", command=avsluta)
+     button_avsluta = can.create_window(660, 88, anchor="center", window=button_avsluta)
 
      while hand_total(dealer_hand) < 17:
           dealer_hand.append(dra_kort(kortlek))
@@ -166,9 +214,6 @@ def stand():
      if kassa <= 0:
           messagebox.showinfo("Resultat", "inga pegnar kvar, du förlorade!")
           root.quit()
-
-
-         
          
      
 def new_game():
@@ -193,12 +238,6 @@ def new_game():
      can.create_window(620, 92, anchor="center", window=button)
      root.update()
 
-
-def hand_to_string(hand):
-     text = ""
-     for card in hand:
-          text += card[1] + " "
-     return text
 
 def avsluta():
      root.quit()
@@ -265,11 +304,15 @@ def button_clicked():
           
           global button_hit, button_stand
           button_hit = tk.Button(root, text=("Hit"), command=hit)
-          button_hit_window = can.create_window(660, 92, anchor="center", window=button_hit)
+          button_hit_window = can.create_window(700, 92, anchor="center", window=button_hit)
 
           button_stand = tk.Button(root, text=("Stand"), command=stand)
-          button_stand_window = can.create_window(580, 92, anchor="center", window=button_stand)
+          button_stand_window = can.create_window(550, 92, anchor="center", window=button_stand)
           
+          if len(player_hand) == 2 and kassa >= satsning:
+               global button_double
+               button_double = tk.Button(root, text=("Double down"), command=double)
+               button_double_window = can.create_window(630, 92, anchor="center", window=button_double)
           
           entry.pack()
           button.pack()
