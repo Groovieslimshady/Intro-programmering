@@ -23,7 +23,6 @@ button_stand = None
 player_total_label = None
 
 
-
 def is_blackjack(hand):
      return len(hand) == 2 and hand_total(hand) == 21
 
@@ -55,7 +54,6 @@ def new_deck():
                kortlek.append([value, f"Tkinter/Kortlek/{value}_of_clubs.png"])
                kortlek.append([value, f"Tkinter/Kortlek/{value}_of_hearts.png"])
                kortlek.append([value, f"Tkinter/Kortlek/{value}_of_spades.png"])
-#"+ str(value) +"
           kortlek.append([10, "Tkinter/Kortlek/jack_of_diamonds2.png"])
           kortlek.append([10, "Tkinter/Kortlek/jack_of_clubs2.png"])
           kortlek.append([10, "Tkinter/Kortlek/jack_of_hearts2.png"])
@@ -182,22 +180,19 @@ def new_game():
      if len(kortlek) < 20:
           kortlek = new_deck()
      can.create_image((600, 300), image=photoImg_bg)
-     start = messagebox.askyesno("Ny omgång", "Starta en ny omgång?")
-     if start:
-          entry.delete("1.0", "end")  
-          entry.pack()
-          satsning_ask.pack()
-          button.pack()
+     entry.delete("1.0", "end")  
+     entry.pack()
+     satsning_ask.pack()
+     button.pack()
 
-          bank.config(text=f"Bank: {kassa} sek")
-          can.create_window(620, 20, anchor="center", window=bank)
-          can.create_window(620, 42, anchor="center", window=satsning_ask)
-          can.create_window(620, 66, anchor="center", window=entry)
-          can.create_window(620, 92, anchor="center", window=button)
-          root.update()
-     else:
-          root.quit()
-     
+     bank.config(text=f"Bank: {kassa} sek")
+     can.create_window(620, 20, anchor="center", window=bank)
+     can.create_window(620, 42, anchor="center", window=satsning_ask)
+     can.create_window(620, 66, anchor="center", window=entry)
+     can.create_window(620, 92, anchor="center", window=button)
+     root.update()
+
+
 def hand_to_string(hand):
      text = ""
      for card in hand:
