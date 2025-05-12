@@ -96,7 +96,6 @@ def hit():
      player_total_label.config(text=f"Total: {hand_total(player_hand)}")
 
      if player_total > 21:
-          messagebox.showinfo("Resultat", "över 21, casinot vinner")
           if button_hit:
                button_hit.destroy()
           if button_stand:
@@ -116,8 +115,10 @@ def stand():
      if button_stand:
           button_stand.destroy()
      button_new_game = tk.Button(root, text=("nytt spel?"), command=new_game)
-     button_new_game_window = can.create_window(620, 92, anchor="center", window=button_new_game)
+     button_new_game_window = can.create_window(580, 92, anchor="center", window=button_new_game)
      
+     button_avsluta = tk.Button(root, text=("Avsluta"), command=avsluta)
+     button_avsluta = can.create_window(660, 92, anchor="center", window=button_avsluta)
 
      while hand_total(dealer_hand) < 17:
           dealer_hand.append(dra_kort(kortlek))
@@ -199,6 +200,8 @@ def hand_to_string(hand):
           text += card[1] + " "
      return text
 
+def avsluta():
+     root.quit()
 
 def button_clicked():
           global photoImg_dealer, photoImg2_dealer, photoImg_player, photoImg2_player, kassa
