@@ -95,7 +95,6 @@ def double():
         button_stand.destroy()
     if button_double:
         button_double.destroy()
-
     try:
         satsning = int(entry.get("1.0", "end-1c"))
     except ValueError:
@@ -138,7 +137,7 @@ def hit():
      can.create_image((x_position, y_position), image=photoImg_hit)
      player_total = hand_total(player_hand)
      player_total_label.config(text=f"Total: {hand_total(player_hand)}")
-
+     button_double.destroy()
      if player_total > 21:
           if button_hit:
                button_hit.destroy()
