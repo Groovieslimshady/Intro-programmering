@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 from tkinter import Menubutton, OptionMenu, Menu
 
 root = tk.Tk()
-root.geometry ("1920x1080+0+1")
+root.geometry ("1920x1080+0+0")
 root.title ("BlackJack")
 root.iconbitmap('C:/Pythonkaka/blackjack.ico')
 
@@ -22,6 +22,8 @@ button_hit = None
 button_stand = None
 button_double = None
 player_total_label = None
+
+
 
 
 def hand_to_string(hand):
@@ -122,7 +124,7 @@ def double():
 
     player_total_label.config(text=f"Total: {hand_total(player_hand)}")
     bank.config(text=f"Bank: {kassa} sek")
-
+    
     stand()
 def hit():
      global photoImg_hit, kassa
@@ -242,81 +244,81 @@ def avsluta():
      root.quit()
 
 def button_clicked():
-          global photoImg_dealer, photoImg2_dealer, photoImg_player, photoImg2_player, kassa
-          satsning = int(entry.get("1.0", "end-1c"))
-          print (satsning)
-          if satsning > kassa:
-               messagebox.showerror("Error", "Du har inte tillräckligt med pengar!")
-               return
-          elif satsning <= 0:
-               messagebox.showerror("Error", "Satsningen måste vara större än 0!")
-               return
-          
-          kassa -= satsning
-          print(kassa, "kronor")
-          
-          bank.config(text=f"Bank: {kassa} sek")
-          # dealern får ett kort (och ett dolt)
-          # spelaren får två kort
-          # visa knappar hit o stand
-          player_hand.append(kortlek.pop())
-          player_hand.append(kortlek.pop())
-          dealer_hand.append(kortlek.pop())
-          dealer_hand.append(kortlek.pop())
+     global photoImg_dealer, photoImg2_dealer, photoImg_player, photoImg2_player, kassa
+     satsning = int(entry.get("1.0", "end-1c"))
+     print (satsning)
+     if satsning > kassa:
+          messagebox.showerror("Error", "Du har inte tillräckligt med pengar!")
+          return
+     elif satsning <= 0:
+          messagebox.showerror("Error", "Satsningen måste vara större än 0!")
+          return
+     
+     kassa -= satsning
+     print(kassa, "kronor")
+     
+     bank.config(text=f"Bank: {kassa} sek")
+     # dealern får ett kort (och ett dolt)
+     # spelaren får två kort
+     # visa knappar hit o stand
+     player_hand.append(kortlek.pop())
+     player_hand.append(kortlek.pop())
+     dealer_hand.append(kortlek.pop())
+     dealer_hand.append(kortlek.pop())
+
+
+     global player_total_label
+     player_total_label = ttk.Label(root, text=f"Total: {hand_total(player_hand)}", style="TLabel")
+     can.create_window(750, 420, anchor="center", window=player_total_label)
+     root.update()
+     Dealer = ttk.Label(root, text=("Dealer"), style="TLabel")
+     Dealer_window = can.create_window(620, 120, anchor="center",window=Dealer)
+     Player = ttk.Label(root, text=("Player"), style="TLabel")
+     Player_window = can.create_window(620, 420, anchor="center",window=Player)
 
      
-          global player_total_label
-          player_total_label = ttk.Label(root, text=f"Total: {hand_total(player_hand)}", style="TLabel")
-          can.create_window(750, 420, anchor="center", window=player_total_label)
-          root.update()
-          Dealer = ttk.Label(root, text=("Dealer"), style="TLabel")
-          Dealer_window = can.create_window(620, 120, anchor="center",window=Dealer)
-          Player = ttk.Label(root, text=("Player"), style="TLabel")
-          Player_window = can.create_window(620, 420, anchor="center",window=Player)
-
-          
-          img_player = Image.open(player_hand[0][1])
-          img_player = img_player.resize((width,height))
-          photoImg_player =  ImageTk.PhotoImage(img_player)
-          player_card_images.append(photoImg_player)
-          can.create_image((580, 520), image = photoImg_player)
+     img_player = Image.open(player_hand[0][1])
+     img_player = img_player.resize((width,height))
+     photoImg_player =  ImageTk.PhotoImage(img_player)
+     player_card_images.append(photoImg_player)
+     can.create_image((580, 520), image = photoImg_player)
 
 
-          img2_player = Image.open(player_hand[1][1])
-          img2_player = img2_player.resize((width,height))
-          photoImg2_player =  ImageTk.PhotoImage(img2_player)
-          player_card_images.append(photoImg2_player)
-          can.create_image((650, 520), image = photoImg2_player)
+     img2_player = Image.open(player_hand[1][1])
+     img2_player = img2_player.resize((width,height))
+     photoImg2_player =  ImageTk.PhotoImage(img2_player)
+     player_card_images.append(photoImg2_player)
+     can.create_image((650, 520), image = photoImg2_player)
 
-          img_dealer = Image.open(dealer_hand[0][1])
-          img_dealer = img_dealer.resize((width,height))
-          photoImg_dealer =  ImageTk.PhotoImage(img_dealer)
-          dealer_card_images.append(photoImg_dealer)
-          can.create_image((580, 220), image = photoImg_dealer)
+     img_dealer = Image.open(dealer_hand[0][1])
+     img_dealer = img_dealer.resize((width,height))
+     photoImg_dealer =  ImageTk.PhotoImage(img_dealer)
+     dealer_card_images.append(photoImg_dealer)
+     can.create_image((580, 220), image = photoImg_dealer)
 
+
+     img2_dealer = Image.open("Tkinter/Kortlek/back.png")
+     img2_dealer = img2_dealer.resize((width,height))
+     photoImg2_dealer =  ImageTk.PhotoImage(img2_dealer)
+     dealer_card_images.append(photoImg2_dealer)
+     can.create_image((650, 220), image = photoImg2_dealer)
      
-          img2_dealer = Image.open("Tkinter/Kortlek/back.png")
-          img2_dealer = img2_dealer.resize((width,height))
-          photoImg2_dealer =  ImageTk.PhotoImage(img2_dealer)
-          dealer_card_images.append(photoImg2_dealer)
-          can.create_image((650, 220), image = photoImg2_dealer)
-          
-          global button_hit, button_stand
-          button_hit = tk.Button(root, text=("Hit"), command=hit)
-          button_hit_window = can.create_window(700, 92, anchor="center", window=button_hit)
+     global button_hit, button_stand
+     button_hit = tk.Button(root, text=("Hit"), command=hit)
+     button_hit_window = can.create_window(700, 92, anchor="center", window=button_hit)
 
-          button_stand = tk.Button(root, text=("Stand"), command=stand)
-          button_stand_window = can.create_window(550, 92, anchor="center", window=button_stand)
-          
-          if len(player_hand) == 2 and kassa >= satsning:
-               global button_double
-               button_double = tk.Button(root, text=("Double down"), command=double)
-               button_double_window = can.create_window(630, 92, anchor="center", window=button_double)
-          
-          entry.pack()
-          button.pack()
-          satsning_ask.pack()
-          root.update()
+     button_stand = tk.Button(root, text=("Stand"), background=("orange"), command=stand)
+     button_stand_window = can.create_window(550, 92, anchor="center", window=button_stand)
+     
+     if len(player_hand) == 2 and kassa >= satsning:
+          global button_double
+          button_double = tk.Button(root, text=("Double down"), command=double)
+          button_double_window = can.create_window(630, 92, anchor="center", window=button_double)
+     
+     entry.pack()
+     button.pack()
+     satsning_ask.pack()
+     root.update()
           
 
 kortlek = new_deck()
@@ -331,7 +333,12 @@ can2.config(width=5000, height=5000)
 can2.pack()
 img_bg2 = Image.open("Tkinter/Bakgrund.jpg")
 img_bg2 = img_bg2.resize((3200,1600))
-
+r = ttk.Label(root, text=("Regler"), style="TLabel")
+r1 = ttk.Label(root, text=("Målet är att vara så nära 21 utan att gå över."), style="TLabel")
+r2 = ttk.Label(root, text=("Ess är värt 1 eller 11, upp till spelaren att bestämma."), style="TLabel")
+r3 = ttk.Label(root, text=("Dubbla = att man dubblar sin insats och enbart får ett kort till"), style="TLabel")
+r4 = ttk.Label(root, text=("Hit = ta ett till kort"), style="TLabel")
+r5 = ttk.Label(root, text=("Stand = inte ta fler kort"), style="TLabel")
 button2 = tk.Button(root, height=5, width=15, text="SPELA", background="red", command=button2_clicked) 
 button2_window = can2.create_window(630, 350, window=button2, anchor="center")
 photoImg_bg2 =  ImageTk.PhotoImage(img_bg2)
