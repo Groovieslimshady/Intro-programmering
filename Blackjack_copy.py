@@ -3,7 +3,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter import messagebox
 from PIL import Image, ImageTk
-from tkinter import Menubutton, OptionMenu, Menu
+
 
 root = tk.Tk()
 root.geometry ("1920x1080+0+0")
@@ -307,7 +307,7 @@ def button_clicked():
      button_hit = tk.Button(root, text=("Hit"), command=hit)
      button_hit_window = can.create_window(700, 92, anchor="center", window=button_hit)
 
-     button_stand = tk.Button(root, text=("Stand"), background=("orange"), command=stand)
+     button_stand = tk.Button(root, text=("Stand"), command=stand)
      button_stand_window = can.create_window(550, 92, anchor="center", window=button_stand)
      
      if len(player_hand) == 2 and kassa >= satsning:
